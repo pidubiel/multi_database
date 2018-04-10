@@ -6,6 +6,14 @@ router.get('/', (req,res,next) => {
   return res.render('index', { title: 'Home' }); 
 });
 
+router.get('/login', (req,res,next) => {
+  return res.render('login', { title: 'Log In' })
+});
+
+router.post('/login', (req,res,next) => {
+  return res.send('Logged In');
+});
+
 router.get('/about', (req,res,next) => {
   return res.render('about', { title: 'About' }); 
 });
