@@ -2,6 +2,22 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 
+router.get('/profile', (req,res,next) => {
+  if(!req.session.userId) {
+    const err = new Error('You are not authorized to view this page');
+    err.status = 403;
+    return next(err);
+  }
+  User.findById(req.session.userId)
+    .exec(function (error,user) {
+      if(error) {
+        return next(error);
+      } else {
+        return res.render('profile', { title: 'Profile', name: user.name, favorite: user.favoriteBook });
+      }
+    })
+})
+
 router.get('/', (req,res,next) => {
   return res.render('index', { title: 'Home' }); 
 });
