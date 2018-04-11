@@ -1,13 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
+const mid = require('../middleware');
 
-router.get('/profile', (req,res,next) => {
-  if(!req.session.userId) {
-    const err = new Error('You are not authorized to view this page');
-    err.status = 403;
-    return next(err);
-  }
+router.get('/profile', mid.requiresLogin, (req,res,next) => {
   User.findById(req.session.userId)
     .exec(function (error,user) {
       if(error) {
@@ -22,7 +18,7 @@ router.get('/', (req,res,next) => {
   return res.render('index', { title: 'Home' }); 
 });
 
-router.get('/login', (req,res,next) => {
+router.get('/login', mid.loggedOut, (req,res,next) => {
   return res.render('login', { title: 'Log In' })
 });
 
@@ -45,6 +41,19 @@ router.post('/login', (req,res,next) => {
   }
 });
 
+router.get('/logout', (req,res,next) => {
+  if (req.session) {
+    //delete session object
+    req.session.destroy(function(err) {
+      if (err) {
+        return next(err);
+      } else {
+        return res.redirect('/')
+      }
+    });
+  }
+})
+
 router.get('/about', (req,res,next) => {
   return res.render('about', { title: 'About' }); 
 });
@@ -53,7 +62,7 @@ router.get('/contact', (req,res,next) => {
   return res.render('contact', { title: 'Contact' }); 
 });
 
-router.get('/register', (req,res,next) => {
+router.get('/register', mid.loggedOut, (req,res,next) => {
   return res.render('register', { title: 'Sign Up' }); 
 });
 
