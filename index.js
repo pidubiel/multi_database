@@ -2,13 +2,23 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+
 const app = express();
 
-//use sessions for tracking logins
+// mongodb connection
+mongoose.connect("mongodb://localhost:27017/multi-database");
+const db = mongoose.connection;
+// mongo error
+db.on('error', console.error.bind(console, 'connection error:'));
+
 app.use(session({
   secret: 'it is amazing',
   resave: true,
-  saveUninitialized: false
+  saveUninitialized: false,
+  store: new MongoStore({
+    mongooseConnection: db
+  })
 }));
 
 //Make user ID available in templates 
@@ -17,11 +27,10 @@ app.use(function(req,res,next) {
   next();
 });
 
-// mongodb connection
-mongoose.connect("mongodb://localhost:27017/multi-database");
-const db = mongoose.connection;
-// mongo error
-db.on('error', console.error.bind(console, 'connection error:'));
+
+
+//use sessions for tracking logins, using MongoDB as a session store
+
 
 // parse incoming requests
 app.use(bodyParser.json());
