@@ -4,8 +4,101 @@ block content
   .main.container.clearfix
     .row
       .col-md-8.col-md-offset-2
-        h1.display-4
+        h1.display-2
           img.avatar.img-circle-hidden-xs-down(src='images/avatar.png', alt='avatar')
           | #{name}
-        h2.favorite-book Favorite Book  
-        | #{favorite}
+        //- h2.favorite-book Favorite Book  
+        //- | #{favorite}
+        form
+          .form-group
+            label(for='exampleFormControlSelect1') Add new media
+            select#exampleFormControlSelect1.form-control
+              option Book
+              option Music
+              option Movie
+          .form-group
+            label(for='exampleFormControlTextarea1') Title
+            input(type='text').form-control(rows='3')
+          .form-group
+            label(for='exampleFormControlTextarea1') Genre
+            input(type='text').form-control(rows='3')
+          .form-group
+            label(for='exampleFormControlTextarea1') Author
+            input(type='text').form-control(rows='3')
+          button(type='submit').btn.btn-secondary Add media
+        .tables
+          .media-group
+            h1.display-4 Books
+            table.table.table-striped
+              thead
+                tr
+                  th(scope='col') #
+                  th(scope='col') title
+                  th(scope='col') genre
+                  th(scope='col') author
+              tbody
+                tr
+                  th(scope='row') 1
+                  td Niebezpieczne związki Bronisława Komorowskiego
+                  td publicystyka
+                  td Wojciech Sumliński
+                tr
+                  th(scope='row') 2
+                  td Szybciej, wyzej, dalej. Skandale Volkswagena.
+                  td literatura faktu
+                  td Jack Ewing
+                tr
+                  th(scope='row') 3
+                  td Larry
+                  td the Bird
+                  td @twitter
+          .media-group
+            h1.display-4 Music
+            table.table.table-striped
+              thead
+                tr
+                  th(scope='col') #
+                  th(scope='col') title
+                  th(scope='col') genre
+                  th(scope='col') author
+              tbody
+                tr
+                  th(scope='row') 1
+                  td Niebezpieczne związki Bronisława Komorowskiego
+                  td publicystyka
+                  td Wojciech Sumliński
+                tr
+                  th(scope='row') 2
+                  td Szybciej, wyzej, dalej. Skandale Volkswagena.
+                  td literatura faktu
+                  td Jack Ewing
+                tr
+                  th(scope='row') 3
+                  td Larry
+                  td the Bird
+                  td @twitter
+          .media-group
+            h1.display-4 Movies
+            table.table.table-striped
+              thead
+                tr
+                  th(scope='col') #
+                  th(scope='col') title
+                  th(scope='col') genre
+                  th(scope='col') author
+              tbody
+                tr
+                  th(scope='row') 1
+                  td Niebezpieczne związki Bronisława Komorowskiego
+                  td publicystyka
+                  td Wojciech Sumliński
+                tr
+                  th(scope='row') 2
+                  td Szybciej, wyzej, dalej. Skandale Volkswagena.
+                  td literatura faktu
+                  td Jack Ewing
+                tr
+                  th(scope='row') 3
+                  td Larry
+                  td the Bird
+                  td @twitter

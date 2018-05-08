@@ -5,27 +5,32 @@ const Schema = mongoose.Schema;
 
 const bookSchema = new Schema({
   author: {
-
+    type: String,
+    required: true,
+    trim: true
   },
   title: {
-
+    type: String,
+    required: true,
+    trim: true
   },
   publisher: {
-
-  },
-  
-  firstName: {
     type: String,
-    required: [true, 'First name field is required']
-  },
-  lastName: {
-    type: String,
-    required: [true, 'Last name field is required']
-  },
-  age: {
-    type: Number,
-    required: [true, 'Age is required']
+    required: true,
+    trim: true
   }
+  // firstName: {
+  //   type: String,
+  //   required: [true, 'First name field is required']
+  // },
+  // lastName: {
+  //   type: String,
+  //   required: [true, 'Last name field is required']
+  // },
+  // age: {
+  //   type: Number,
+  //   required: [true, 'Age is required']
+  // }
 });
 
 const Book = mongoose.model('book', bookSchema);

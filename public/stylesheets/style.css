@@ -15,7 +15,7 @@ a:hover {
 
 .navbar {
 	padding: 1rem 0;
-	background: rgba(0,0,0, .25);
+	background: #173268;
 }
 .lead {
 	margin-bottom: 2.5rem;
@@ -115,6 +115,18 @@ a:hover {
   margin-top: 30px;
 }
 
+table {
+	background-color: #98b5f7;
+}
+
+.tables {
+	padding: 3rem 0;
+}
+
+.tables .media-group {
+  padding-bottom: 3rem;
+}
+
 /* Media Queries */
 
 @media (min-width: 0) and (max-width: 47em) {
@@ -157,3 +169,6 @@ a:hover {
 	}
 }
 
+h3 {
+	padding-top: 40px;
+}

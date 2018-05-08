@@ -11,7 +11,7 @@ mongoose.connect("mongodb://localhost:27017/multi-database");
 const db = mongoose.connection;
 // mongo error
 db.on('error', console.error.bind(console, 'connection error:'));
-
+//use sessions for tracking logins, using MongoDB as a session store
 app.use(session({
   secret: 'it is amazing',
   resave: true,
@@ -27,11 +27,6 @@ app.use(function(req,res,next) {
   next();
 });
 
-
-
-//use sessions for tracking logins, using MongoDB as a session store
-
-
 // parse incoming requests
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -46,6 +41,9 @@ app.set('views', __dirname + '/views');
 // include routes
 const routes = require('./routes/register');
 app.use('/', routes);
+
+const api = require('./routes/api');
+app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
