@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const Media = require('./media');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
@@ -22,6 +23,10 @@ const UserSchema = new Schema({
     password: {
       type: String,
       required: true
+    },
+    media: {
+      type: Schema.ObjectId,
+      ref: 'Media'
     }
 });
 

@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
+const Media = require('../models/media');
 const mid = require('../middleware');
+
 
 router.get('/profile', mid.requiresLogin, (req,res,next) => {
   User.findById(req.session.userId)
@@ -9,7 +11,33 @@ router.get('/profile', mid.requiresLogin, (req,res,next) => {
       if(error) {
         return next(error);
       } else {
-        return res.render('profile', { title: 'Profile', name: user.name, favorite: user.favoriteBook });
+        const userResult = null;
+        Media.find({userId: req.session.userId}).then(function(result){
+          const movies = result.filter(function(media){
+            return media.mediaType === 'Movie';
+          });
+          const books = result.filter(function(media){
+            return media.mediaType === 'Book';
+          });
+          const music = result.filter(function(media){
+            return media.mediaType === 'Music';
+          });
+          const someArr = ['Janusz', 'Grazyna', 'Kamil']
+          console.log(music);
+          templateObject = {
+            title: 'Profile',
+            name: user.name,
+            favorite: user.favoriteBook,
+            movies: movies,
+            books: books,
+            music: music,
+            someArr: someArr
+          }
+          //return res.render('profile', { title: 'Profile', name: user.name, favorite: user.favoriteBook, media: result });
+          return res.render('profile', templateObject);
+        });
+        //console.log(userResult);
+        
       }
     })
 })
@@ -102,6 +130,46 @@ router.post('/register', function(req, res, next) {
     } else {
       var err = new Error('All fields required.');
       console.log(req.body.email);
+      err.status = 400;
+      return next(err);
+    }
+});
+
+// POST /profile
+router.post('/profile', function(req, res, next) {
+  if (req.body.title && req.body.genre && req.body.author && req.body.mediaType) {
+      // create object with form input
+      var newItem = {
+        userId: req.session.userId,
+        mediaType: req.body.mediaType,
+        title: req.body.title,
+        genre: req.body.genre,
+        author: req.body.author
+      };
+      console.log('User ID: ', req.session.userId);
+      //Add new item to the Database
+            // use schema's `create` method to insert document into Mongo
+      Media.create(newItem, () => {
+          //req.session.userId = user._id;
+          return res.redirect('/profile');
+        });
+      // return res.render('profile', { title: newItem.title, genre: newItem.genre, author: newItem.author });
+      //console.log(newItem);
+
+
+      // use schema's `create` method to insert document into Mongo
+      // User.create(userData, function (error, user) {
+      //   if (error) {
+      //     return next(error);
+      //   } else {
+      //     req.session.userId = user._id;
+      //     return res.redirect('/profile');
+      //   }
+      // });
+      
+    } else {
+      console.log(newItem);
+      var err = new Error('All fields required.');
       err.status = 400;
       return next(err);
     }

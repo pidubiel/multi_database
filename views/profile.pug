@@ -9,26 +9,27 @@ block content
           | #{name}
         //- h2.favorite-book Favorite Book  
         //- | #{favorite}
-        form
+        form(method='POST' action='/profile')
           .form-group
-            label(for='exampleFormControlSelect1') Add new media
-            select#exampleFormControlSelect1.form-control
+            label(for='mediaType', name='mediaType') Add new media
+            select(name='mediaType')#mediaType.form-control
               option Book
               option Music
               option Movie
           .form-group
-            label(for='exampleFormControlTextarea1') Title
-            input(type='text').form-control(rows='3')
+            label(for='title') Title
+            input(type='text', placeholder='type title of new item' name='title').form-control(rows='3')
           .form-group
-            label(for='exampleFormControlTextarea1') Genre
-            input(type='text').form-control(rows='3')
+            label(for='genre') Genre
+            input(type='text', placeholder='type genre of new item' name='genre').form-control(rows='3')
           .form-group
-            label(for='exampleFormControlTextarea1') Author
-            input(type='text').form-control(rows='3')
-          button(type='submit').btn.btn-secondary Add media
+            label(for='author') Author
+            input(type='text', placeholder='type author of new item' name='author').form-control(rows='3')
+          button.btn.btn-secondary(type='submit') Add media
         .tables
           .media-group
             h1.display-4 Books
+              i.icn-logo.material-icons book
             table.table.table-striped
               thead
                 tr
@@ -37,23 +38,15 @@ block content
                   th(scope='col') genre
                   th(scope='col') author
               tbody
-                tr
-                  th(scope='row') 1
-                  td Niebezpieczne związki Bronisława Komorowskiego
-                  td publicystyka
-                  td Wojciech Sumliński
-                tr
-                  th(scope='row') 2
-                  td Szybciej, wyzej, dalej. Skandale Volkswagena.
-                  td literatura faktu
-                  td Jack Ewing
-                tr
-                  th(scope='row') 3
-                  td Larry
-                  td the Bird
-                  td @twitter
+                for item, index in books
+                  tr
+                    th(scope='row')= index+1
+                    td= item.title
+                    td= item.genre
+                    td= item.author
           .media-group
             h1.display-4 Music
+              i.icn-logo.material-icons library_music
             table.table.table-striped
               thead
                 tr
@@ -62,23 +55,15 @@ block content
                   th(scope='col') genre
                   th(scope='col') author
               tbody
-                tr
-                  th(scope='row') 1
-                  td Niebezpieczne związki Bronisława Komorowskiego
-                  td publicystyka
-                  td Wojciech Sumliński
-                tr
-                  th(scope='row') 2
-                  td Szybciej, wyzej, dalej. Skandale Volkswagena.
-                  td literatura faktu
-                  td Jack Ewing
-                tr
-                  th(scope='row') 3
-                  td Larry
-                  td the Bird
-                  td @twitter
+                for item, index in music
+                  tr
+                    th(scope='row')= index+1
+                    td= item.title
+                    td= item.genre
+                    td= item.author
           .media-group
             h1.display-4 Movies
+              i.icn-logo.material-icons voice_chat
             table.table.table-striped
               thead
                 tr
@@ -87,18 +72,9 @@ block content
                   th(scope='col') genre
                   th(scope='col') author
               tbody
-                tr
-                  th(scope='row') 1
-                  td Niebezpieczne związki Bronisława Komorowskiego
-                  td publicystyka
-                  td Wojciech Sumliński
-                tr
-                  th(scope='row') 2
-                  td Szybciej, wyzej, dalej. Skandale Volkswagena.
-                  td literatura faktu
-                  td Jack Ewing
-                tr
-                  th(scope='row') 3
-                  td Larry
-                  td the Bird
-                  td @twitter
+                for item, index in movies
+                  tr
+                    th(scope='row')= index+1
+                    td= item.title
+                    td= item.genre
+                    td= item.author

@@ -116,7 +116,7 @@ a:hover {
 }
 
 table {
-	background-color: #98b5f7;
+	background-color: #eaeaea;
 }
 
 .tables {
@@ -126,7 +126,9 @@ table {
 .tables .media-group {
   padding-bottom: 3rem;
 }
-
+.material-icons {
+	font-size: inherit;
+}
 /* Media Queries */
 
 @media (min-width: 0) and (max-width: 47em) {
